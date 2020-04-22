@@ -9,23 +9,28 @@ pygame.font.init()  # you have to call this at the start,
 # Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
 RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
-YELLOW = (0, 0, 255)
-LIGHT_BLUE = (159, 255, 248)
-PINK = (0, 0, 255)
+YELLOW = (255, 255, 0)
+CYAN = (0, 255, 255)
+MAGENTA = (255, 0, 255)
 GREY = (128, 128, 128)
 DARK_GREY = (96, 96, 96)
-
 SILVER = (192, 192, 192)
 
 # Open a new window
-size = (300, 600)
+size = (280, 620)
 screen = pygame.display.set_mode(size)
 screenWidth = screen.get_rect().width
 screenHeight = screen.get_rect().height
-pygame.display.set_caption("Who is the true TGMastermind?")
+pygame.display.set_caption("TGMastermind!")
+numbers = []
+guesses = [[]]
+hints = [[]]
+colors = []
+confirm = 0
+temp = []
 
 myfont = pygame.font.SysFont('Raleway', 50)
 textsurface = myfont.render('MASTERMIND', True, WHITE)
@@ -54,20 +59,39 @@ while carryOn:
 
     # 4 Mysterious Dots
     for i in range(0, 4):
-        pygame.draw.circle(screen, SILVER, ((int(screenWidth / 2) - 80) + 50 * i, 70), 20, 0)
+        pygame.draw.circle(screen, SILVER, ((int(screenWidth / 2) - 70) + 50 * i, 70), 20, 0)
     # Background rect
     pygame.draw.rect(screen, GREY, [0, 100, screenWidth, screenHeight - 100], 0)
 
-    #10 rows fo payling field
+    # 10 rows for payling field
     for i in range(0, 11):
-        pygame.draw.rect(screen, WHITE, [10, 110 + i * 40, 30, 30], 0)
-
-
-    """
-    pygame.draw.rect(screen, RED, [55, 200, 100, 70], 0)
-    pygame.draw.line(screen, GREEN, [0, 0], [100, 100], 5)
-    pygame.draw.ellipse(screen, BLACK, [20, 20, 250, 100], 2)
-"""
+        # Number rects
+        numbers.append(pygame.draw.rect(screen, WHITE, [10, 110 + i * 40, 30, 30], 0))
+        # 4 empty color selections for the guessing player
+        for j in range(0, 4):
+            temp.append(pygame.draw.circle(screen, SILVER, (70 + 50 * j, 125 + i * 40), 15, 0))
+        # Border for the hints
+        guesses.append(temp)
+        temp.clear()
+        pygame.draw.rect(screen, WHITE, [screenWidth - 35, 110 + i * 40, 30, 30], 1)
+        # 4 hints from the mastermind to the guesser
+        for j in range(0, 4):
+            if j < 2:
+                temp.append(pygame.draw.circle(screen, SILVER, (screenWidth - 27 + 14 * j, 118 + i * 40), 5, 0))
+            else:
+                temp.append(pygame.draw.circle(screen, SILVER, (screenWidth - 27 + 14 * (j - 2), 132 + i * 40), 5, 0))
+        hints.append(temp)
+        temp.clear()
+    # 6 colors that can be selected
+    colors.append(pygame.draw.circle(screen, RED, (int(screenWidth / 6) * 1 - 18, screenHeight - 55), 15, 0))
+    colors.append(pygame.draw.circle(screen, BLUE, (int(screenWidth / 6) * 2 - 18, screenHeight - 55), 15, 0))
+    colors.append(pygame.draw.circle(screen, GREEN, (int(screenWidth / 6) * 3 - 18, screenHeight - 55), 15, 0))
+    colors.append(pygame.draw.circle(screen, YELLOW, (int(screenWidth / 6) * 4 - 18, screenHeight - 55), 15, 0))
+    colors.append(pygame.draw.circle(screen, CYAN, (int(screenWidth / 6) * 5 - 18, screenHeight - 55), 15, 0))
+    colors.append(pygame.draw.circle(screen, MAGENTA, (int(screenWidth / 6) * 6 - 18, screenHeight - 55), 15, 0))
+    #confirm button
+    confirm = pygame.draw.rect(screen, WHITE, [10, screenHeight - 35, int(screenWidth/2) - 15, 30], 0)
+    solve = pygame.draw.rect(screen, WHITE, [int(screenWidth/2) + 5, screenHeight - 35, int(screenWidth/2) - 10, 30], 0)
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
 
