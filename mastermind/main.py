@@ -89,8 +89,9 @@ while carryOn:
     colors.append(pygame.draw.circle(screen, YELLOW, (int(screenWidth / 6) * 4 - 18, screenHeight - 55), 15, 0))
     colors.append(pygame.draw.circle(screen, CYAN, (int(screenWidth / 6) * 5 - 18, screenHeight - 55), 15, 0))
     colors.append(pygame.draw.circle(screen, MAGENTA, (int(screenWidth / 6) * 6 - 18, screenHeight - 55), 15, 0))
-    #confirm button
+    # confirm button
     confirm = pygame.draw.rect(screen, WHITE, [10, screenHeight - 35, int(screenWidth/2) - 15, 30], 0)
+    # solve button
     solve = pygame.draw.rect(screen, WHITE, [int(screenWidth/2) + 5, screenHeight - 35, int(screenWidth/2) - 10, 30], 0)
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
