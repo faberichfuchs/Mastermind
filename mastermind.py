@@ -26,6 +26,8 @@ class Mastermind(object):
             if guess[i] == self.code[i]:
                 response.append("BLACK")
                 comparable_code[guess[i]] = comparable_code[guess[i]] - 1
+                comparable_guess[guess[i]] = comparable_guess[guess[i]] - 1
+        print(comparable_code)
         for color in comparable_guess:
             if color in comparable_code:
                 if comparable_guess[color] <= comparable_code[color]:

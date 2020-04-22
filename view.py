@@ -34,16 +34,18 @@ class View:
         myfont = self.pygame.font.SysFont('Raleway', 50)
         textsurface = myfont.render('MASTERMIND', True, self.WHITE)
 
-        self.screen.fill(self.DARK_GREY)
+        self.screen.fill(self.GREY)
 
         # MASTERMIND text
         self.screen.blit(textsurface, (self.screenWidth / 2 - (textsurface.get_rect().width / 2), 10))
 
         # 4 Mysterious Dots
         for i in range(0, 4):
-            self.mystery.append(self.pygame.draw.circle(self.screen, self.SILVER, ((int(self.screenWidth / 2) - 70) + 50 * i, 70), 20, 0))
+            self.mystery.append(
+                self.pygame.draw.circle(self.screen, self.SILVER, ((int(self.screenWidth / 2) - 70) + 50 * i, 70), 20,
+                                        0))
         # Background rect
-        self.pygame.draw.rect(self.screen, self.GREY, [0, 100, self.screenWidth, self.screenHeight - 100], 0)
+        self.pygame.draw.rect(self.screen, self.DARK_GREY, [0, 100, self.screenWidth, self.screenHeight - 100], 0)
 
         # 10 rows for payling field
         for i in range(0, 13):
@@ -63,12 +65,11 @@ class View:
                 if j < 2:
                     self.temp.append(
                         self.pygame.draw.circle(self.screen, self.SILVER,
-                                                (self.screenWidth - 27 + 14 * j, 118 + i * 40), 5,
-                                                0))
+                                                (self.screenWidth - 27 + 14 * j, 118 + i * 40), 5, 1))
                 else:
                     self.temp.append(
                         self.pygame.draw.circle(self.screen, self.SILVER,
-                                                (self.screenWidth - 27 + 14 * (j - 2), 132 + i * 40), 5, 0))
+                                                (self.screenWidth - 27 + 14 * (j - 2), 132 + i * 40), 5, 1))
             self.hints.append(self.temp.copy())
             self.temp.clear()
         # 6 colors that can be selected
@@ -118,7 +119,7 @@ class View:
                         self.pygame.draw.circle(self.screen, self.colors[self.selected_color],
                                                 (color[i].left + 15, color[i].top + 15), 15)
                         self.current_guess[i] = self.selected_color
-        #print(self.current_guess)
+        # print(self.current_guess)
 
     def solve_mystery(self, colors):
         for i in range(0, 4):
@@ -126,4 +127,12 @@ class View:
                                     (self.mystery[i].left + 20, self.mystery[i].top + 20), 20)
 
     def add_hints(self, hints):
-        print(hints)
+        print(self.hints)
+        print(self.hints[self.remaining_guesses][0])
+        for i in range(0, len(hints)):
+            if hints[i] == 'BLACK':
+                self.pygame.draw.circle(self.screen, self.BLACK, (
+                    self.hints[self.remaining_guesses][i].left + 6, self.hints[self.remaining_guesses][i].top + 6), 5, 0)
+            else:
+                self.pygame.draw.circle(self.screen, self.WHITE, (
+                    self.hints[self.remaining_guesses][i].left + 6, self.hints[self.remaining_guesses][i].top + 6), 5, 0)

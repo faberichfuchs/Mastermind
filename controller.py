@@ -34,7 +34,6 @@ while carryOn:
             view.pin_entered(pos)
             if view.confirm.collidepoint(pos):
                 hints = mastermind.check_input(view.current_guess)
-                view.remaining_guesses -= 1
                 view.add_hints(hints)
             if view.solve.collidepoint(pos):
                 colors = mastermind.solve_mystery()
