@@ -33,11 +33,12 @@ while carryOn:
             # entering a colored pin
             view.pin_entered(pos)
             if view.confirm.collidepoint(pos):
-                pass
+                hints = mastermind.check_input(view.current_guess)
+                view.remaining_guesses -= 1
+                view.add_hints(hints)
             if view.solve.collidepoint(pos):
                 colors = mastermind.solve_mystery()
                 view.solve_mystery(colors)
-                carryOn = False
 
         # --- Game logic should go here
 

@@ -15,13 +15,13 @@ class View:
         self.SILVER = (192, 192, 192)
         self.colors = {'RED': (255, 0, 0), 'GREEN': (0, 255, 0), 'BLUE': (0, 0, 255), 'CYAN': (0, 255, 255),
                        'MAGENTA': (255, 0, 255), 'YELLOW': (255, 255, 0)}
-        self.screen = pygame.display.set_mode((280, 620))
+        self.screen = pygame.display.set_mode((280, 700))
         self.screenWidth = self.screen.get_rect().width
         self.screenHeight = self.screen.get_rect().height
         self.mystery = []
         self.numbers = []
         self.guesses = []
-        self.remaining_guesses = 10
+        self.remaining_guesses = 12
         self.current_guess = []
         self.hints = []
         self.selectableColors = {}
@@ -46,7 +46,7 @@ class View:
         self.pygame.draw.rect(self.screen, self.GREY, [0, 100, self.screenWidth, self.screenHeight - 100], 0)
 
         # 10 rows for payling field
-        for i in range(0, 11):
+        for i in range(0, 13):
             # Number rects
             self.numbers.append(self.pygame.draw.rect(self.screen, self.WHITE, [10, 110 + i * 40, 30, 30], 0))
             # 4 empty color selections for the guessing player
@@ -107,13 +107,23 @@ class View:
         print(self.selected_color)
 
     def pin_entered(self, pos):
-        for color in self.guesses[self.remaining_guesses]:
-            if color.collidepoint(pos):
-                if self.selected_color != "":
-                    self.pygame.draw.circle(self.screen, self.colors[self.selected_color],
-                                            (color.left + 15, color.top + 15), 15)
+        if not self.current_guess:
+            for i in range(0, 4):
+                self.current_guess.append("")
+        else:
+            color = self.guesses[self.remaining_guesses]
+            for i in range(0, 4):
+                if color[i].collidepoint(pos):
+                    if self.selected_color != "":
+                        self.pygame.draw.circle(self.screen, self.colors[self.selected_color],
+                                                (color[i].left + 15, color[i].top + 15), 15)
+                        self.current_guess[i] = self.selected_color
+        #print(self.current_guess)
 
     def solve_mystery(self, colors):
         for i in range(0, 4):
             self.pygame.draw.circle(self.screen, self.colors[colors[i]],
                                     (self.mystery[i].left + 20, self.mystery[i].top + 20), 20)
+
+    def add_hints(self, hints):
+        print(hints)
