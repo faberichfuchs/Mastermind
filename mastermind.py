@@ -1,7 +1,9 @@
 import numpy as np
 
-class Mastermind:
+
+class Mastermind(object):
     # This class represents a car. It derives from the "Sprite" class in Pygame.
+
     def __init__(self):
         self.colors = ['RED', 'GREEN', 'BLUE', 'CYAN', 'MAGENTA', 'YELLOW']
         self.tries = 0
@@ -13,5 +15,3 @@ class Mastermind:
         pass
 
 
-if __name__ == '__main__':
-    test = Mastermind()
