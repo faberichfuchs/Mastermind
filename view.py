@@ -18,6 +18,7 @@ class View:
         self.screen = pygame.display.set_mode((280, 620))
         self.screenWidth = self.screen.get_rect().width
         self.screenHeight = self.screen.get_rect().height
+        self.mystery = []
         self.numbers = []
         self.guesses = []
         self.remaining_guesses = 10
@@ -25,6 +26,7 @@ class View:
         self.hints = []
         self.selectableColors = {}
         self.confirm = 0
+        self.solve = 0
         self.selected_color = ""
         self.temp = []
 
@@ -39,7 +41,7 @@ class View:
 
         # 4 Mysterious Dots
         for i in range(0, 4):
-            self.pygame.draw.circle(self.screen, self.SILVER, ((int(self.screenWidth / 2) - 70) + 50 * i, 70), 20, 0)
+            self.mystery.append(self.pygame.draw.circle(self.screen, self.SILVER, ((int(self.screenWidth / 2) - 70) + 50 * i, 70), 20, 0))
         # Background rect
         self.pygame.draw.rect(self.screen, self.GREY, [0, 100, self.screenWidth, self.screenHeight - 100], 0)
 
@@ -110,3 +112,8 @@ class View:
                 if self.selected_color != "":
                     self.pygame.draw.circle(self.screen, self.colors[self.selected_color],
                                             (color.left + 15, color.top + 15), 15)
+
+    def solve_mystery(self, colors):
+        for i in range(0, 4):
+            self.pygame.draw.circle(self.screen, self.colors[colors[i]],
+                                    (self.mystery[i].left + 20, self.mystery[i].top + 20), 20)

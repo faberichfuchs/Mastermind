@@ -14,4 +14,7 @@ class Mastermind(object):
     def check_input(self):
         pass
 
+    def solve_mystery(self):
+        return self.colors
+
 
