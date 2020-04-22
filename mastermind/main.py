@@ -115,9 +115,10 @@ while carryOn:
             # check if a guessing field has been selected
             #print(guesses)
             for row in guesses:
-                print(row)
+                #print(row)
                 for color in row:
-                    print(color.collidepoint(pos))
+                    if color.collidepoint(pos):
+                        pygame.draw.circle(screen, colors[selected_color], (color.left + 15, color.top + 15), 15)
 
         # --- Game logic should go here
 
