@@ -4,7 +4,8 @@ import random
 class Mastermind(object):
     # This class represents a car. It derives from the "Sprite" class in Pygame.
 
-    def __init__(self):
+    def __init__(self, controller):
+        self.controller = controller
         self.colors = ['RED', 'GREEN', 'BLUE', 'CYAN', 'MAGENTA', 'YELLOW']
         self.tries = 0
         self.comparable = {}
@@ -29,6 +30,7 @@ class Mastermind(object):
                 comparable_guess[guess[i]] = comparable_guess[guess[i]] - 1
         print(comparable_code)
         if len(response) == 4:
+            self.controller.guesser_won()
             return "WIN"
         for color in comparable_guess:
             if color in comparable_code:
@@ -38,17 +40,10 @@ class Mastermind(object):
                     amount = comparable_code[color]
                 for i in range(0, amount):
                     response.append("WHITE")
-        """
-        for color in guess:
-            if color in comparable_code:
-                for i in range(0, 4):
-                    if color == self.code[i]:
-                        response.append("BLACK")
-                comparable_code.update({color: self.comparable[color] - 1})
-"""
         self.tries += 1
         print(response)
         return response
+
 
     def solve_mystery(self):
         return self.code
