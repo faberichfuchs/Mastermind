@@ -1,3 +1,7 @@
+from tkinter import *
+from tkinter import messagebox
+
+
 class View:
 
     def __init__(self, pygame):
@@ -136,3 +140,10 @@ class View:
             else:
                 self.pygame.draw.circle(self.screen, self.WHITE, (
                     self.hints[self.remaining_guesses][i].left + 6, self.hints[self.remaining_guesses][i].top + 6), 5, 0)
+        self.remaining_guesses -= 1
+
+    def guesser_won(self, colors):
+        self.solve_mystery(colors)
+        Tk().wm_withdraw()  # to hide the main window
+        #messagebox.showinfo('Continue', 'OK')
+        messagebox._show('Victory', 'Congratulations!\nYou are the TGMastermind :)')

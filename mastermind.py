@@ -28,6 +28,8 @@ class Mastermind(object):
                 comparable_code[guess[i]] = comparable_code[guess[i]] - 1
                 comparable_guess[guess[i]] = comparable_guess[guess[i]] - 1
         print(comparable_code)
+        if len(response) == 4:
+            return "WIN"
         for color in comparable_guess:
             if color in comparable_code:
                 if comparable_guess[color] <= comparable_code[color]:
