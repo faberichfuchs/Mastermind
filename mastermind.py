@@ -32,15 +32,18 @@ class Mastermind(object):
         if len(response) == 4:
             self.controller.guesser_won()
             return "WIN"
-        for color in comparable_guess:
-            if color in comparable_code:
-                if comparable_guess[color] <= comparable_code[color]:
-                    amount = comparable_guess[color]
-                else:
-                    amount = comparable_code[color]
-                for i in range(0, amount):
-                    response.append("WHITE")
-        self.tries += 1
+        if self.tries < 12:
+            for color in comparable_guess:
+                if color in comparable_code:
+                    if comparable_guess[color] <= comparable_code[color]:
+                        amount = comparable_guess[color]
+                    else:
+                        amount = comparable_code[color]
+                    for i in range(0, amount):
+                        response.append("WHITE")
+            self.tries += 1
+        else:
+            self.controller.guesser_lost()
         print(response)
         return response
 

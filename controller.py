@@ -86,7 +86,11 @@ class Controller(object):
     def guesser_won(self):
         self.playing = False
         self.view.add_hints(['BLACK', 'BLACK', 'BLACK', 'BLACK'])
-        self.view.guesser_won(self.mastermind.solve_mystery())
+        self.view.display_guesser_won(self.mastermind.solve_mystery())
+
+    def guesser_lost(self):
+        self.playing = False
+        self.view.display_guesser_lost(self.mastermind.solve_mystery())
 
     def restart(self):
         self.carryOn = False

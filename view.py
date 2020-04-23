@@ -139,6 +139,7 @@ class View:
     def confirm_guess(self):
         if self.current_guess:
             self.controller.confirm_guess()
+            self.current_guess = []
 
     def confirm_solve(self):
         print("solve")
@@ -163,11 +164,17 @@ class View:
                                                    0)
         self.remaining_guesses -= 1
 
-    def guesser_won(self, colors):
+    def display_guesser_won(self, colors):
         self.solve_mystery(colors)
         Tk().wm_withdraw()  # to hide the main window
         # messagebox.showinfo('Continue', 'OK')
         messagebox._show('Victory', 'Congratulations!\nYou are the TGMastermind :)')
+
+    def display_guesser_lost(self, colors):
+        self.solve_mystery(colors)
+        Tk().wm_withdraw()  # to hide the main window
+        # messagebox.showinfo('Continue', 'OK')
+        messagebox._show('Defeat', 'Too bad!\nI gues you\'ll just have to TryGM again ;)')
 
     def confirm_restart(self):
         print("Hallo")
