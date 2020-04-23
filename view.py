@@ -29,8 +29,9 @@ class View:
         self.current_guess = []
         self.hints = []
         self.selectableColors = {}
-        self.confirm = 0
-        self.solve = 0
+        self.confirm = None
+        self.solve = None
+        self.restart = None
         self.selected_color = ""
         self.temp = []
 
@@ -140,6 +141,7 @@ class View:
             self.controller.confirm_guess()
 
     def confirm_solve(self):
+        print("solve")
         self.controller.solve_mystery()
 
     def solve_mystery(self, colors):
@@ -167,10 +169,12 @@ class View:
         # messagebox.showinfo('Continue', 'OK')
         messagebox._show('Victory', 'Congratulations!\nYou are the TGMastermind :)')
 
-    def restart(self):
+    def confirm_restart(self):
         print("Hallo")
+        self.controller.restart()
 
     def give_restart_option(self):
         self.restart = Button("Restart game?", 10, self.screenHeight - 35, int(self.screenWidth / 2) - 15, 30,
-                              command=self.restart)
+                              command=self.confirm_restart)
+        #print(self.restart)
         self.restart.draw(self.screen)
